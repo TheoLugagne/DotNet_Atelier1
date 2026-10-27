@@ -1,6 +1,6 @@
 ﻿namespace DotNet_Atelier1;
 
-public interface ICollectable
+public interface ICollectable : IDisplayable
 {
     
 }

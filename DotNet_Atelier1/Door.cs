@@ -1,34 +1,27 @@
 ﻿namespace DotNet_Atelier1;
 
-public class Door : Tile
+public class Door(Key? key) : Tile
 {
-    private Key? Key { get; set; }
-    private DoorState State { get; set; }
-
-    public Door(Key? key)
-    {
-        Key = key;
-        State = DoorState.Closed;
-    }
+    private Key? Key { get; set; } = key;
+    private DoorState State { get; set; } = DoorState.Closed;
+    
+    public Door(char c) : this(null) {}
 
     private bool IsOpen() => State == DoorState.Open;
     private void Open()
     {
-        if (State == DoorState.Closed && Key is not null)
-        {
-            State = DoorState.Open;
-            Key = null;
-        }
+        if (!(State == DoorState.Closed && Key is not null)) return;
+        State = DoorState.Open;
+        Key = null;
     }
 
-    public override bool IsTraversable
-    {
-        get => IsOpen();
-    }
+    public override bool IsTraversable => IsOpen();
 
     public override bool Pass()
     {
         Open();
         return IsTraversable;
     }
+
+    public override char Display() => '/';
 }
